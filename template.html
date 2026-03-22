@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETAL - K-POPガールズ&ビューティーマガジン</title>
+  <meta name="description" content="PETALは、K-POPガールズグループの最新ニュース、ビューティー、ファッション情報をお届けする日本発のウェブマガジンです。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent: '#e85b7a',
+            ink: '#333333',
+            meta: '#999999',
+            rule: '#e5e5e5',
+            bg: '#f7f7f7',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif;
+      color: #333;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-serif { font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif; }
+    a { text-decoration: none; color: inherit; }
+    a:hover { color: #e85b7a; }
+    img { display: block; width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="border-b border-rule bg-white">
+    <div class="max-w-[1100px] mx-auto px-4">
+      <div class="flex items-center justify-between h-14">
+        <a href="#" class="font-serif font-bold text-2xl tracking-[0.12em] text-ink">PETAL</a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#" class="text-sm text-ink hover:text-accent">ガールズ</a>
+          <a href="#" class="text-sm text-ink hover:text-accent">ビューティー</a>
+          <a href="#" class="text-sm text-ink hover:text-accent">ファッション</a>
+          <a href="#" class="text-sm text-ink hover:text-accent">ライフ</a>
+          <a href="#" class="text-sm text-ink hover:text-accent">ランキング</a>
+        </nav>
+        <button class="md:hidden text-sm text-meta" id="menuBtn">MENU</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div id="mobileNav" class="hidden border-b border-rule bg-white md:hidden">
+    <div class="max-w-[1100px] mx-auto px-4 py-3 flex flex-wrap gap-4">
+      <a href="#" class="text-sm text-ink hover:text-accent">ガールズ</a>
+      <a href="#" class="text-sm text-ink hover:text-accent">ビューティー</a>
+      <a href="#" class="text-sm text-ink hover:text-accent">ファッション</a>
+      <a href="#" class="text-sm text-ink hover:text-accent">ライフ</a>
+      <a href="#" class="text-sm text-ink hover:text-accent">ランキング</a>
+    </div>
+  </div>
+
+
+  <!-- HERO / TOP ARTICLE -->
+  <section class="max-w-[1100px] mx-auto px-4 pt-6 pb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Main article -->
+      <div class="lg:col-span-8">
+        <a href="#" class="block">
+          <img
+            src="{{HERO_IMAGE}}"
+            alt=""
+            class="w-full aspect-[16/9] object-cover"
+            loading="eager"
+          >
+          <div class="mt-3">
+            <span class="text-xs text-accent font-bold">{{HERO_CATEGORY}}</span>
+            <h1 class="font-serif font-bold text-xl md:text-2xl text-ink mt-1 leading-snug hover:text-accent">{{HERO_TITLE}}</h1>
+            <div class="flex items-center gap-3 mt-2 text-xs text-meta">
+              <span>{{HERO_DATE}}</span>
+              <span>/</span>
+              <span>{{HERO_SOURCE}}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Side articles -->
+      <div class="lg:col-span-4 flex flex-col gap-4">
+        <a href="#" class="flex gap-3 border-b border-rule pb-4">
+          <img src="https://picsum.photos/seed/petal-side1/300/200" alt="" class="w-24 h-16 object-cover flex-shrink-0">
+          <div>
+            <span class="text-[10px] text-accent font-bold">ガールズ</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-0.5 hover:text-accent">IVEウォニョン、春の新ビジュアルが話題に</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.21</span>
+          </div>
+        </a>
+        <a href="#" class="flex gap-3 border-b border-rule pb-4">
+          <img src="https://picsum.photos/seed/petal-side2/300/200" alt="" class="w-24 h-16 object-cover flex-shrink-0">
+          <div>
+            <span class="text-[10px] text-accent font-bold">ビューティー</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-0.5 hover:text-accent">LE SSERAFIMカズハのメイクアップルーティン公開</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.20</span>
+          </div>
+        </a>
+        <a href="#" class="flex gap-3 border-b border-rule pb-4">
+          <img src="https://picsum.photos/seed/petal-side3/300/200" alt="" class="w-24 h-16 object-cover flex-shrink-0">
+          <div>
+            <span class="text-[10px] text-accent font-bold">ファッション</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-0.5 hover:text-accent">aespaカリナが着こなす春のトレンドコーデ5選</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.19</span>
+          </div>
+        </a>
+        <a href="#" class="flex gap-3">
+          <img src="https://picsum.photos/seed/petal-side4/300/200" alt="" class="w-24 h-16 object-cover flex-shrink-0">
+          <div>
+            <span class="text-[10px] text-accent font-bold">ライフ</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-0.5 hover:text-accent">K-POPファンが選ぶ東京のおすすめカフェ7選</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.18</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PICKUP -->
+  <section class="border-t border-rule">
+    <div class="max-w-[1100px] mx-auto px-4 py-8">
+      <h2 class="font-serif font-bold text-base text-ink border-b-2 border-ink pb-2 mb-6">ピックアップ</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {{PICKUP_ITEMS}}
+
+        <a href="#" class="block border border-rule">
+          <img src="https://picsum.photos/seed/petal-pickup1/600/400" alt="" class="w-full aspect-[3/2] object-cover">
+          <div class="p-3">
+            <span class="text-[10px] text-accent font-bold">インタビュー</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-1 hover:text-accent">NewJeansミンジが語る「私たちらしさ」の意味</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.22</span>
+          </div>
+        </a>
+
+        <a href="#" class="block border border-rule">
+          <img src="https://picsum.photos/seed/petal-pickup2/600/400" alt="" class="w-full aspect-[3/2] object-cover">
+          <div class="p-3">
+            <span class="text-[10px] text-accent font-bold">ビューティー</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-1 hover:text-accent">春の新作コスメ、アイドルも愛用するリップ8選</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.21</span>
+          </div>
+        </a>
+
+        <a href="#" class="block border border-rule">
+          <img src="https://picsum.photos/seed/petal-pickup3/600/400" alt="" class="w-full aspect-[3/2] object-cover">
+          <div class="p-3">
+            <span class="text-[10px] text-accent font-bold">ライフ</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-1 hover:text-accent">初心者でも楽しめるK-POPダンス教室ガイド</h3>
+            <span class="text-[11px] text-meta mt-1 block">2026.03.20</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- LATEST ARTICLES -->
+  <section class="border-t border-rule">
+    <div class="max-w-[1100px] mx-auto px-4 py-8">
+      <div class="flex items-center justify-between border-b-2 border-ink pb-2 mb-6">
+        <h2 class="font-serif font-bold text-base text-ink">最新記事</h2>
+        <a href="#" class="text-xs text-accent hover:underline">すべて見る &gt;</a>
+      </div>
+
+      <div class="divide-y divide-rule">
+        {{LATEST_ARTICLES}}
+
+        <a href="#" class="flex gap-4 py-4 group">
+          <img src="https://picsum.photos/seed/petal-latest1/300/200" alt="" class="w-[120px] h-[80px] object-cover flex-shrink-0">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] text-accent font-bold">ガールズ</span>
+              <span class="text-[11px] text-meta">2026.03.22</span>
+            </div>
+            <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">ILLITイロハ、初のソロ写真集が発売決定</h3>
+          </div>
+        </a>
+
+        <a href="#" class="flex gap-4 py-4 group">
+          <img src="https://picsum.photos/seed/petal-latest2/300/200" alt="" class="w-[120px] h-[80px] object-cover flex-shrink-0">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] text-accent font-bold">ビューティー</span>
+              <span class="text-[11px] text-meta">2026.03.21</span>
+            </div>
+            <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">韓国で話題の「ガラス肌」スキンケア、日本で買えるアイテムまとめ</h3>
+          </div>
+        </a>
+
+        <a href="#" class="flex gap-4 py-4 group">
+          <img src="https://picsum.photos/seed/petal-latest3/300/200" alt="" class="w-[120px] h-[80px] object-cover flex-shrink-0">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] text-accent font-bold">ファッション</span>
+              <span class="text-[11px] text-meta">2026.03.20</span>
+            </div>
+            <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">STAYCスミン着用のスプリングコートが即完売</h3>
+          </div>
+        </a>
+
+        <a href="#" class="flex gap-4 py-4 group">
+          <img src="https://picsum.photos/seed/petal-latest4/300/200" alt="" class="w-[120px] h-[80px] object-cover flex-shrink-0">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] text-accent font-bold">ライフ</span>
+              <span class="text-[11px] text-meta">2026.03.19</span>
+            </div>
+            <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">K-POPファンが選ぶ東京のおすすめカフェ7選</h3>
+          </div>
+        </a>
+
+        <a href="#" class="flex gap-4 py-4 group">
+          <img src="https://picsum.photos/seed/petal-latest5/300/200" alt="" class="w-[120px] h-[80px] object-cover flex-shrink-0">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] text-accent font-bold">ガールズ</span>
+              <span class="text-[11px] text-meta">2026.03.18</span>
+            </div>
+            <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">(G)I-DLE日本ツアー2026、追加公演が決定</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOCUS -->
+  <section class="bg-bg border-t border-rule">
+    <div class="max-w-[1100px] mx-auto px-4 py-8">
+      <h2 class="font-serif font-bold text-base text-ink border-b-2 border-ink pb-2 mb-6">ガールズ特集</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {{FOCUS_ITEMS}}
+
+        <a href="#" class="block group">
+          <img src="https://picsum.photos/seed/petal-focus1/400/300" alt="" class="w-full aspect-[4/3] object-cover">
+          <div class="mt-2">
+            <span class="text-[10px] text-accent font-bold">特集</span>
+            <h3 class="text-xs md:text-sm font-bold text-ink leading-snug mt-0.5 group-hover:text-accent">TWICE結成10周年、メンバーが語る10年間の歩み</h3>
+          </div>
+        </a>
+
+        <a href="#" class="block group">
+          <img src="https://picsum.photos/seed/petal-focus2/400/300" alt="" class="w-full aspect-[4/3] object-cover">
+          <div class="mt-2">
+            <span class="text-[10px] text-accent font-bold">注目</span>
+            <h3 class="text-xs md:text-sm font-bold text-ink leading-snug mt-0.5 group-hover:text-accent">NMIXXジウ、日本バラエティ初出演の反響</h3>
+          </div>
+        </a>
+
+        <a href="#" class="block group">
+          <img src="https://picsum.photos/seed/petal-focus3/400/300" alt="" class="w-full aspect-[4/3] object-cover">
+          <div class="mt-2">
+            <span class="text-[10px] text-accent font-bold">カムバック</span>
+            <h3 class="text-xs md:text-sm font-bold text-ink leading-snug mt-0.5 group-hover:text-accent">ITZY新アルバム「BLOSSOMING」コンセプト公開</h3>
+          </div>
+        </a>
+
+        <a href="#" class="block group">
+          <img src="https://picsum.photos/seed/petal-focus4/400/300" alt="" class="w-full aspect-[4/3] object-cover">
+          <div class="mt-2">
+            <span class="text-[10px] text-accent font-bold">インタビュー</span>
+            <h3 class="text-xs md:text-sm font-bold text-ink leading-snug mt-0.5 group-hover:text-accent">KISS OF LIFEが語る日本デビューへの思い</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- RANKING -->
+  <section class="border-t border-rule">
+    <div class="max-w-[1100px] mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Ranking list -->
+        <div class="lg:col-span-7">
+          <h2 class="font-serif font-bold text-base text-ink border-b-2 border-ink pb-2 mb-4">人気ランキング</h2>
+
+          <div class="divide-y divide-rule">
+            {{RANKING_ITEMS}}
+
+            <a href="#" class="flex items-center gap-4 py-3 group">
+              <span class="font-bold text-2xl text-accent w-8 text-center flex-shrink-0">1</span>
+              <div>
+                <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">aespa東京ドーム公演、チケット30秒で完売の新記録</h3>
+                <span class="text-[11px] text-meta">15,847 views</span>
+              </div>
+            </a>
+
+            <a href="#" class="flex items-center gap-4 py-3 group">
+              <span class="font-bold text-2xl text-accent w-8 text-center flex-shrink-0">2</span>
+              <div>
+                <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">BLACKPINKジスのスキンケアブランドが日本上陸</h3>
+                <span class="text-[11px] text-meta">12,403 views</span>
+              </div>
+            </a>
+
+            <a href="#" class="flex items-center gap-4 py-3 group">
+              <span class="font-bold text-2xl text-accent w-8 text-center flex-shrink-0">3</span>
+              <div>
+                <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">IVEレイ着用のシャネルバッグ、世界中で品薄に</h3>
+                <span class="text-[11px] text-meta">9,821 views</span>
+              </div>
+            </a>
+
+            <a href="#" class="flex items-center gap-4 py-3 group">
+              <span class="font-bold text-2xl text-accent w-8 text-center flex-shrink-0">4</span>
+              <div>
+                <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">韓国カフェブーム再燃、東京に新オープンした注目の5店舗</h3>
+                <span class="text-[11px] text-meta">8,456 views</span>
+              </div>
+            </a>
+
+            <a href="#" class="flex items-center gap-4 py-3 group">
+              <span class="font-bold text-2xl text-accent w-8 text-center flex-shrink-0">5</span>
+              <div>
+                <h3 class="text-sm font-bold text-ink leading-snug group-hover:text-accent">LE SSERAFIMサクラ、日本ドラマ初主演が決定</h3>
+                <span class="text-[11px] text-meta">7,293 views</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-5">
+          <!-- Tags -->
+          <div class="border border-rule p-4 mb-4">
+            <h3 class="font-bold text-sm text-ink border-b border-rule pb-2 mb-3">人気タグ</h3>
+            <div class="flex flex-wrap gap-2">
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#aespa</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#IVE</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#NewJeans</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#LE SSERAFIM</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#春コスメ</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#韓国カフェ</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#TWICE</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#空港ファッション</a>
+              <a href="#" class="text-xs text-meta border border-rule px-2 py-1 hover:text-accent hover:border-accent">#スキンケア</a>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="border border-rule p-4">
+            <h3 class="font-bold text-sm text-ink border-b border-rule pb-2 mb-3">メールマガジン</h3>
+            <p class="text-xs text-meta leading-relaxed mb-3">毎週金曜日、K-POPガールズの最新ニュースをお届けします。</p>
+            <div class="flex gap-2">
+              <input
+                type="email"
+                placeholder="メールアドレス"
+                class="flex-1 px-3 py-2 border border-rule text-xs text-ink focus:outline-none focus:border-accent"
+              >
+              <button class="px-4 py-2 bg-accent text-white text-xs font-bold hover:bg-[#d14a6a]">登録</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-bg border-t border-rule">
+    <div class="max-w-[1100px] mx-auto px-4 py-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <span class="font-serif font-bold text-sm text-ink tracking-[0.1em]">PETAL</span>
+          <span class="text-[11px] text-meta">&copy; 2019-2026 PETAL</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#" class="text-[11px] text-meta hover:text-accent">About</a>
+          <a href="#" class="text-[11px] text-meta hover:text-accent">Contact</a>
+          <a href="#" class="text-[11px] text-meta hover:text-accent">Privacy Policy</a>
+          <a href="#" class="text-[11px] text-meta hover:text-accent">広告掲載</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- MINIMAL JS: Mobile menu toggle only -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('menuBtn');
+      var nav = document.getElementById('mobileNav');
+      if (btn && nav) {
+        btn.addEventListener('click', function() {
+          nav.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
