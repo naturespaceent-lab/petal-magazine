@@ -446,7 +446,7 @@
           <div class="lg:sticky lg:top-24 space-y-6">
 
             <!-- Newsletter signup -->
-            <div class="fade-up bg-gradient-to-br from-petal/10 via-blush to-mint/10 rounded-card-lg p-5 md:p-6">
+            <div class="fade-up bg-blush rounded-card-lg p-5 md:p-6 border border-petal/10">
               <div class="flex items-center gap-2 mb-3">
                 <iconify-icon icon="solar:letter-bold" class="text-petal text-lg"></iconify-icon>
                 <h3 class="font-display font-bold text-sm text-ink">PETAL Newsletter</h3>
@@ -456,9 +456,9 @@
                 <input
                   type="email"
                   placeholder="メールアドレス"
-                  class="w-full px-4 py-2.5 rounded-full bg-white/80 border border-petal/15 text-xs text-ink placeholder:text-muted/60 focus:outline-none focus:border-petal/40 focus:ring-2 focus:ring-petal/10 transition-all duration-300"
+                  class="w-full px-4 py-2.5 rounded-full bg-white border border-petal/15 text-xs text-ink placeholder:text-muted/60 focus:outline-none focus:border-petal/40 transition-all duration-300"
                 >
-                <button class="w-full px-4 py-2.5 rounded-full bg-petal text-white text-xs font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);">
+                <button class="w-full px-4 py-2.5 rounded-[8px] bg-ink text-white text-xs font-medium hover:bg-ink/85 active:bg-ink/70 transition-colors duration-200">
                   無料で登録
                 </button>
               </div>
@@ -471,33 +471,7 @@
                 人気記事
               </h3>
               <div class="space-y-4">
-                <a href="#" class="flex gap-3 group">
-                  <div class="flex-shrink-0 w-16 h-16 rounded-[10px] overflow-hidden">
-                    <img src="https://picsum.photos/seed/petal-pop1/200/200" alt="人気記事1" class="w-full h-full object-cover img-zoom" loading="lazy" decoding="async">
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h4 class="text-xs font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2">aespa東京ドーム公演、チケットが即完売</h4>
-                    <span class="text-[10px] text-muted mt-1 block">15,847 views</span>
-                  </div>
-                </a>
-                <a href="#" class="flex gap-3 group">
-                  <div class="flex-shrink-0 w-16 h-16 rounded-[10px] overflow-hidden">
-                    <img src="https://picsum.photos/seed/petal-pop2/200/200" alt="人気記事2" class="w-full h-full object-cover img-zoom" loading="lazy" decoding="async">
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h4 class="text-xs font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2">春の新作コスメ、アイドル愛用リップ特集</h4>
-                    <span class="text-[10px] text-muted mt-1 block">12,403 views</span>
-                  </div>
-                </a>
-                <a href="#" class="flex gap-3 group">
-                  <div class="flex-shrink-0 w-16 h-16 rounded-[10px] overflow-hidden">
-                    <img src="https://picsum.photos/seed/petal-pop3/200/200" alt="人気記事3" class="w-full h-full object-cover img-zoom" loading="lazy" decoding="async">
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h4 class="text-xs font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2">IVEレイ着用シャネルバッグが世界中で品薄</h4>
-                    <span class="text-[10px] text-muted mt-1 block">9,821 views</span>
-                  </div>
-                </a>
+                {{POPULAR_SIDEBAR}}
               </div>
             </div>
 
@@ -543,48 +517,6 @@
       <!-- Related articles grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
         {{RELATED_ARTICLES}}
-
-        <!-- Related Article 1 -->
-        <a href="#" class="fade-up group card-hover">
-          <div class="bg-cream rounded-card-lg overflow-hidden shadow-sm">
-            <div class="overflow-hidden" style="border-radius: 24px 24px 0 0;">
-              <img src="https://picsum.photos/seed/petal-rel1/600/400" alt="関連記事1" class="w-full aspect-[3/2] object-cover img-zoom" loading="lazy" decoding="async">
-            </div>
-            <div class="p-4 md:p-5">
-              <span class="badge-petal mb-2 inline-block text-[10px]">ガールズ</span>
-              <h3 class="text-sm md:text-base font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2 mb-2">IVEウォニョン、春の新ビジュアルが話題に</h3>
-              <span class="text-xs text-muted">2026.03.21</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Related Article 2 -->
-        <a href="#" class="fade-up fade-up-delay-1 group card-hover">
-          <div class="bg-cream rounded-card-lg overflow-hidden shadow-sm">
-            <div class="overflow-hidden" style="border-radius: 24px 24px 0 0;">
-              <img src="https://picsum.photos/seed/petal-rel2/600/400" alt="関連記事2" class="w-full aspect-[3/2] object-cover img-zoom" loading="lazy" decoding="async">
-            </div>
-            <div class="p-4 md:p-5">
-              <span class="badge-mint mb-2 inline-block text-[10px]">ビューティー</span>
-              <h3 class="text-sm md:text-base font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2 mb-2">春の新作コスメ、アイドルも愛用するリップ8選</h3>
-              <span class="text-xs text-muted">2026.03.20</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Related Article 3 -->
-        <a href="#" class="fade-up fade-up-delay-2 group card-hover">
-          <div class="bg-cream rounded-card-lg overflow-hidden shadow-sm">
-            <div class="overflow-hidden" style="border-radius: 24px 24px 0 0;">
-              <img src="https://picsum.photos/seed/petal-rel3/600/400" alt="関連記事3" class="w-full aspect-[3/2] object-cover img-zoom" loading="lazy" decoding="async">
-            </div>
-            <div class="p-4 md:p-5">
-              <span class="badge-petal mb-2 inline-block text-[10px]">ファッション</span>
-              <h3 class="text-sm md:text-base font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2 mb-2">aespaカリナが着こなす春のトレンドコーデ5選</h3>
-              <span class="text-xs text-muted">2026.03.19</span>
-            </div>
-          </div>
-        </a>
       </div>
     </div>
   </section>

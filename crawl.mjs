@@ -246,6 +246,41 @@ const KNOWN_SOLOISTS = [
 const ALL_KNOWN_NAMES = [...KNOWN_GROUPS, ...KNOWN_SOLOISTS]
   .sort((a, b) => b.length - a.length);
 
+// ---- Boy groups / male soloists — filter these out of sidebar/related in PETAL (girls magazine) ----
+const BOY_GROUP_NAMES = new Set([
+  'BTS', 'EXO', 'NCT', 'Stray Kids', 'ENHYPEN', 'TXT', 'ATEEZ', 'SEVENTEEN',
+  'GOT7', 'MONSTA X', 'iKON', 'WINNER', 'BIGBANG', 'Super Junior', 'SHINee',
+  'BTOB', 'PENTAGON', 'SF9', 'THE BOYZ', 'Golden Child', 'ONEUS', 'VERIVERY',
+  'CIX', 'VICTON', 'AB6IX', 'WEi', 'CRAVITY', 'P1Harmony', 'TEMPEST', 'YOUNITE',
+  'Xdinary Heroes', 'ZEROBASEONE', 'RIIZE', 'TWS', 'BOYNEXTDOOR', 'xikers',
+  'NCT 127', 'NCT DREAM', 'WayV', 'NCT WISH', 'DAY6', 'ASTRO', 'INFINITE',
+  'BEAST', 'Highlight', 'Block B', 'B.A.P', 'VIXX', 'CNBLUE', 'FTIsland',
+  'ZB1', 'TREASURE', 'Super M', 'EXO-CBX',
+]);
+const BOY_SOLOIST_NAMES = new Set([
+  'V', 'Jungkook', 'Suga', 'RM', 'J-Hope', 'Jin', 'Jimin',
+  'Mark', 'Taeyong', 'Jaehyun', 'Doyoung', 'Haechan', 'Jeno', 'Jaemin', 'Renjun',
+  'Chenle', 'Jisung', 'Bangchan', 'Hyunjin', 'Felix', 'Han', 'Lee Know', 'Changbin',
+  'Seungmin', 'I.N', 'Heeseung', 'Jay', 'Jake', 'Sunghoon', 'Sunoo', 'Jungwon',
+  'Ni-ki', 'Soobin', 'Yeonjun', 'Beomgyu', 'Taehyun', 'Hueningkai', 'Hongjoong',
+  'Seonghwa', 'Yunho', 'Yeosang', 'San', 'Mingi', 'Wooyoung', 'Jongho',
+  'S.Coups', 'Jeonghan', 'Joshua', 'Jun', 'Hoshi', 'Wonwoo', 'Woozi', 'DK',
+  'Mingyu', 'The8', 'Seungkwan', 'Vernon', 'Dino',
+  'Taemin', 'Baekhyun', 'Chanyeol', 'D.O.', 'Kai', 'Sehun', 'Xiumin',
+  'Lay', 'Chen', 'Suho', 'GDragon', 'G-Dragon', 'Taeyang', 'Daesung',
+  'Seungri', 'TOP', 'Zico', 'Cha Eun Woo',
+  'Jackson', 'BamBam', 'Yugyeom', 'Youngjae', 'JB', 'Jinyoung',
+  'Park Bo Gum', 'Song Joong Ki', 'Lee Min Ho', 'Kim Soo Hyun',
+  'Park Seo Joon', 'Jung Hae In', 'Yoo Yeon Seok',
+]);
+
+function isBoyGroupArticle(article) {
+  const title = article.originalTitle || article.title || '';
+  const artist = extractArtist(title);
+  if (artist && (BOY_GROUP_NAMES.has(artist) || BOY_SOLOIST_NAMES.has(artist))) return true;
+  return false;
+}
+
 // ---- Topic classifier keyword map ----
 
 const TOPIC_KEYWORDS = {
@@ -396,6 +431,24 @@ const NO_ARTIST_TEMPLATES = [
   'K-POPガールズの最新トレンドを徹底チェック',
   'ガールズシーンの今を知る — PETAL最新レポート',
   '今押さえるべきガールズグループニュースまとめ',
+  'PETALが追いかける、ガールズグループの今',
+  'K-POPガールズ最前線 — 見逃し厳禁のニュース',
+  'ガールズグループファン必見のトピック集',
+  '今週のK-POPガールズダイジェスト',
+  'ガールズグループの話題を総まとめ — PETALレビュー',
+  'K-POPガールズの注目ポイントを深掘り解説',
+  '今知りたいガールズグループ最新事情',
+  'PETALセレクト — ガールズグループ最旬ニュース',
+  'K-POPガールズシーンの潮流を読む',
+  '今週チェックすべきガールズグループの動き',
+  'PETAL厳選 — 見逃せないK-POPガールズ情報',
+  'ガールズグループ最新ニュースダイジェスト',
+  '今週のガールズシーン — PETALまとめ',
+  'K-POPガールズの話題をPETALがキャッチ',
+  '編集部注目のガールズグループトピック',
+  'PETALが選ぶ今週のベストK-POPニュース',
+  'ガールズグループ界の最新トレンド分析',
+  'K-POPガールズのリアルタイム速報',
 ];
 
 // ---- Helper: pick random item from array ----
@@ -901,6 +954,12 @@ const SHARED_PARAGRAPHS = {
     `{artist}の活躍は、K-POPファン以外の層にも影響を与えています。ファッションやビューティートレンドへの波及効果も見逃せません。`,
     `今回の成果を踏まえ、{artist}のさらなる飛躍が期待されています。PETALでは今後も{artist}の活動を追い続けます。`,
   ],
+  closing: [
+    `PETALでは引き続き{artist}の最新情報をお届けしていきます。次回の特集もお楽しみに。`,
+    `{artist}のこれからに、PETALは注目し続けます。新たな展開があり次第、すぐにお届けします。`,
+    `{artist}の物語はまだまだ続きます。PETALと一緒に、その成長を見届けましょう。`,
+    `以上、{artist}の最新情報をPETAL編集部がお届けしました。次回更新をお見逃しなく。`,
+  ],
 };
 
 function rewriteArticleBody(articleContent, title) {
@@ -915,23 +974,44 @@ function rewriteArticleBody(articleContent, title) {
   const inlineImages = (articleContent?.images || []).slice(1, 4); // Up to 3 inline images
 
   const paragraphs = [];
+  // Track all used text to prevent any paragraph from appearing twice
+  const usedTexts = new Set();
+
+  // Pick a random item that hasn't been used yet
+  const pickUnique = (arr) => {
+    const available = arr.filter(t => !usedTexts.has(t));
+    if (available.length === 0) return arr[Math.floor(Math.random() * arr.length)];
+    const picked = available[Math.floor(Math.random() * available.length)];
+    usedTexts.add(picked);
+    return picked;
+  };
+
+  // Shuffle and pick N unique items that haven't been used yet
+  const shuffleAndPickUnique = (arr, n) => {
+    const available = arr.filter(t => !usedTexts.has(t));
+    const shuffled = [...available].sort(() => Math.random() - 0.5);
+    const picked = shuffled.slice(0, Math.min(n, shuffled.length));
+    for (const p of picked) usedTexts.add(p);
+    return picked;
+  };
 
   if (artist) {
     const topicTemplates = BODY_TEMPLATES[topic] || BODY_TEMPLATES.general;
     const sub = (text) => text.replace(/\{artist\}/g, artist);
 
     // 1. Opening (1 paragraph from topic templates)
-    paragraphs.push({ type: 'intro', text: sub(pickRandom(topicTemplates)) });
+    const intro = pickUnique(topicTemplates);
+    paragraphs.push({ type: 'intro', text: sub(intro) });
 
     // 2. Background (1-2 paragraphs)
     const bgCount = targetParagraphs >= 10 ? 2 : 1;
-    for (const bg of shuffleAndPick(SHARED_PARAGRAPHS.background, bgCount)) {
+    for (const bg of shuffleAndPickUnique(SHARED_PARAGRAPHS.background, bgCount)) {
       paragraphs.push({ type: 'body', text: sub(bg) });
     }
 
     // 3. Detail (2-3 paragraphs)
     const detailCount = targetParagraphs >= 10 ? 3 : 2;
-    for (const d of shuffleAndPick(SHARED_PARAGRAPHS.detail, detailCount)) {
+    for (const d of shuffleAndPickUnique(SHARED_PARAGRAPHS.detail, detailCount)) {
       paragraphs.push({ type: 'body', text: sub(d) });
     }
 
@@ -942,7 +1022,7 @@ function rewriteArticleBody(articleContent, title) {
 
     // 4. Reaction (1-2 paragraphs)
     const reactionCount = targetParagraphs >= 10 ? 2 : 1;
-    for (const r of shuffleAndPick(SHARED_PARAGRAPHS.reaction, reactionCount)) {
+    for (const r of shuffleAndPickUnique(SHARED_PARAGRAPHS.reaction, reactionCount)) {
       paragraphs.push({ type: 'body', text: sub(r) });
     }
 
@@ -952,20 +1032,18 @@ function rewriteArticleBody(articleContent, title) {
     }
 
     // 5. Impact (1 paragraph)
-    paragraphs.push({ type: 'body', text: sub(pickRandom(SHARED_PARAGRAPHS.impact)) });
+    paragraphs.push({ type: 'body', text: sub(pickUnique(SHARED_PARAGRAPHS.impact)) });
 
-    // 6. Closing (1 paragraph — pick another template line as closing)
-    const closingTemplates = topicTemplates.length > 1
-      ? topicTemplates.filter(t => t !== paragraphs[0]?.text)
-      : topicTemplates;
-    paragraphs.push({ type: 'closing', text: sub(pickRandom(SHARED_PARAGRAPHS.impact)) });
+    // 6. Closing (1 paragraph — from dedicated closing pool, never from impact)
+    paragraphs.push({ type: 'closing', text: sub(pickUnique(SHARED_PARAGRAPHS.closing)) });
 
   } else {
     // No artist — use generic body
-    paragraphs.push({ type: 'intro', text: pickRandom(NO_ARTIST_BODY) });
+    const introText = pickUnique(NO_ARTIST_BODY);
+    paragraphs.push({ type: 'intro', text: introText });
 
     // Background from shared (generic substitution without artist)
-    for (const bg of shuffleAndPick(SHARED_PARAGRAPHS.background, 2)) {
+    for (const bg of shuffleAndPickUnique(SHARED_PARAGRAPHS.background, 2)) {
       paragraphs.push({ type: 'body', text: bg.replace(/\{artist\}/g, 'ガールズグループ') });
     }
 
@@ -973,11 +1051,11 @@ function rewriteArticleBody(articleContent, title) {
       paragraphs.push({ type: 'image', src: inlineImages[0] });
     }
 
-    for (const d of shuffleAndPick(SHARED_PARAGRAPHS.detail, 2)) {
+    for (const d of shuffleAndPickUnique(SHARED_PARAGRAPHS.detail, 2)) {
       paragraphs.push({ type: 'body', text: d.replace(/\{artist\}/g, 'ガールズグループ') });
     }
 
-    for (const r of shuffleAndPick(SHARED_PARAGRAPHS.reaction, 1)) {
+    for (const r of shuffleAndPickUnique(SHARED_PARAGRAPHS.reaction, 1)) {
       paragraphs.push({ type: 'body', text: r.replace(/\{artist\}/g, 'ガールズグループ') });
     }
 
@@ -985,9 +1063,10 @@ function rewriteArticleBody(articleContent, title) {
       paragraphs.push({ type: 'image', src: inlineImages[1] });
     }
 
-    paragraphs.push({ type: 'body', text: pickRandom(SHARED_PARAGRAPHS.impact).replace(/\{artist\}/g, 'ガールズグループ') });
+    paragraphs.push({ type: 'body', text: pickUnique(SHARED_PARAGRAPHS.impact).replace(/\{artist\}/g, 'ガールズグループ') });
 
-    paragraphs.push({ type: 'closing', text: pickRandom(NO_ARTIST_BODY) });
+    // Closing — pick from NO_ARTIST_BODY but ensure it's different from the intro
+    paragraphs.push({ type: 'closing', text: pickUnique(NO_ARTIST_BODY) });
   }
 
   return { paragraphs };
@@ -1045,6 +1124,24 @@ function imgTagForArticle(article, width, height, loading = 'lazy') {
 // ============================================================
 
 // Hero is handled via template placeholders in PETAL
+
+function generateHeroSideCard(article, isLast) {
+  if (!article) return '';
+  const filename = escapeHtml(article.localUrl || '#');
+  const image = escapeHtml(article.image || PLACEHOLDER_IMAGE);
+  const category = escapeHtml(displayCategory(article.category));
+  const title = escapeHtml(article.title);
+  const date = escapeHtml(article.formattedDate);
+  const borderClass = isLast ? '' : ' border-b border-rule pb-4';
+  return `<a href="${filename}" class="flex gap-3${borderClass}">
+          <img src="${image}" alt="" class="w-24 h-16 object-cover flex-shrink-0">
+          <div>
+            <span class="text-[10px] text-accent font-bold">${category}</span>
+            <h3 class="text-sm font-bold text-ink leading-snug mt-0.5 hover:text-accent">${title}</h3>
+            <span class="text-[11px] text-meta mt-1 block">${date}</span>
+          </div>
+        </a>`;
+}
 
 function generatePickupCard(article) {
   if (!article) return '';
@@ -1152,8 +1249,9 @@ async function generateArticlePages(allArticles, usedArticles) {
 
     // Find related articles (same category, different article)
     // Only pick articles that have a localUrl so links are never broken
+    // Filter out boy group articles — PETAL is a girls magazine
     const related = allArticles
-      .filter(a => a !== article && a.image && a.localUrl)
+      .filter(a => a !== article && a.image && a.localUrl && !isBoyGroupArticle(a))
       .slice(0, 20) // from a pool
       .sort(() => Math.random() - 0.5) // shuffle
       .slice(0, 3); // take 3
@@ -1207,6 +1305,33 @@ async function generateArticlePages(allArticles, usedArticles) {
           </a>`;
     }
 
+    // Build popular sidebar (pick 3 random articles different from current)
+    // Filter out boy group articles — PETAL is a girls magazine
+    const popularPool = allArticles
+      .filter(a => a !== article && a.image && a.localUrl && !isBoyGroupArticle(a))
+      .slice(0, 30)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    const viewCounts = [15847, 12403, 9821, 8654, 7390, 6102, 5443];
+    let popularSidebarHtml = '';
+    for (let pi = 0; pi < popularPool.length; pi++) {
+      const pop = popularPool[pi];
+      let popImgSrc = pop.image || PLACEHOLDER_IMAGE;
+      if (popImgSrc.startsWith('images/')) popImgSrc = '../' + popImgSrc;
+      const popUrl = `../${pop.localUrl}`;
+      const popFallback = `https://picsum.photos/seed/${encodeURIComponent(pop.title.slice(0, 15))}/200/200`;
+      popularSidebarHtml += `
+                <a href="${escapeHtml(popUrl)}" class="flex gap-3 group">
+                  <div class="flex-shrink-0 w-16 h-16 rounded-[10px] overflow-hidden">
+                    <img src="${escapeHtml(popImgSrc)}" alt="${escapeHtml(pop.title)}" class="w-full h-full object-cover img-zoom" loading="lazy" decoding="async" data-fallback="${escapeHtml(popFallback)}" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-ink leading-snug break-keep group-hover:text-petal transition-colors duration-300 line-clamp-2">${escapeHtml(pop.title)}</h4>
+                    <span class="text-[10px] text-muted mt-1 block">${(viewCounts[pi] || 5000 + Math.floor(Math.random() * 10000)).toLocaleString()} views</span>
+                  </div>
+                </a>`;
+    }
+
     // Build source attribution
     const sourceAttribution = `<div class="source-attribution">
           出典: <a href="${escapeHtml(article.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.source)}</a>
@@ -1221,13 +1346,15 @@ async function generateArticlePages(allArticles, usedArticles) {
       .replace(/\{\{ARTICLE_TITLE\}\}/g, escapeHtml(article.title))
       .replace('{{ARTICLE_DESCRIPTION}}', escapeHtml(article.title).slice(0, 160))
       .replace('{{ARTICLE_IMAGE}}', escapeHtml(heroImgSrc))
-      .replace('{{ARTICLE_CATEGORY}}', escapeHtml(displayCategory(article.category)))
+      .replace(/\{\{ARTICLE_CATEGORY\}\}/g, escapeHtml(displayCategory(article.category)))
+      .replace(/\{\{ARTICLE_SOURCE\}\}/g, escapeHtml(article.source))
       .replace('{{ARTICLE_DATE}}', escapeHtml(article.formattedDate))
       .replace('{{ARTICLE_HERO_IMAGE}}', heroImg)
       .replace('{{ARTICLE_BODY}}', bodyHtml)
       .replace('{{SOURCE_ATTRIBUTION}}', sourceAttribution)
       .replace('{{PHOTO_CREDIT}}', photoCredit)
-      .replace('{{RELATED_ARTICLES}}', relatedHtml);
+      .replace('{{RELATED_ARTICLES}}', relatedHtml)
+      .replace('{{POPULAR_SIDEBAR}}', popularSidebarHtml);
 
     const outputPath = join(ARTICLES_DIR, filename);
     await writeFile(outputPath, html, 'utf-8');
@@ -1270,17 +1397,19 @@ function assignSections(articles) {
     return result;
   };
 
-  // PETAL layout: hero(1), pickup(3), latest(5), focus(4), ranking(5)
+  // PETAL layout: hero(1), heroSide(4), pickup(6), latest(8), focus(8), ranking(5)
   const heroCandidates = withRealImages.length >= 1 ? withRealImages : all;
   const heroSkipped = heroCandidates.slice(HERO_OFFSET);
   const hero = take(heroSkipped.length ? heroSkipped : heroCandidates, 1);
-  const pickup = take(withRealImages.length >= 4 ? withRealImages : all, 3);
-  const latest = take(all, 5);
-  const focus = take(withRealImages.length >= 4 ? withRealImages : all, 4);
+  const heroSide = take(all, 4);
+  const pickup = take(withRealImages.length >= 7 ? withRealImages : all, 6);
+  const latest = take(all, 8);
+  const focus = take(withRealImages.length >= 8 ? withRealImages : all, 8);
   const ranking = take(all, 5);
 
   return {
     hero: hero[0] || null,
+    heroSide,
     pickup,
     latest,
     focus,
@@ -1305,6 +1434,12 @@ async function generateHtml(sections) {
     template = template.replace('{{HERO_DATE}}', escapeHtml(hero.formattedDate));
     template = template.replace('{{HERO_SOURCE}}', escapeHtml(hero.source));
   }
+
+  // Hero side articles
+  template = template.replace(
+    '{{HERO_SIDE_ARTICLES}}',
+    sections.heroSide.map((a, i) => generateHeroSideCard(a, i === sections.heroSide.length - 1)).join('\n        ')
+  );
 
   // Pickup section
   template = template.replace(
@@ -1387,16 +1522,30 @@ async function main() {
   await fillMissingImages(articles);
   log('');
 
-  // 3. Rewrite ALL titles to Japanese
+  // 3. Rewrite ALL titles to Japanese (with deduplication)
   log('Rewriting titles to Japanese editorial style...');
   let rewritten = 0;
+  const usedTitles = new Set();
   for (const article of articles) {
     const original = article.title;
     article.originalTitle = original;
-    article.title = rewriteTitle(original, article.source);
+    let newTitle = rewriteTitle(original, article.source);
+    // Deduplication: if title already used, try up to 10 times for a unique one
+    let attempts = 0;
+    while (usedTitles.has(newTitle) && attempts < 10) {
+      newTitle = rewriteTitle(original, article.source);
+      attempts++;
+    }
+    // If still duplicate after 10 attempts, append a suffix
+    if (usedTitles.has(newTitle)) {
+      const suffixes = ['（続報）', '（詳報）', '（速報）', '（独自取材）', '（編集部注目）', '（PETAL独占）', '（最新情報）', '（深掘り）'];
+      newTitle = newTitle + suffixes[Math.floor(Math.random() * suffixes.length)];
+    }
+    usedTitles.add(newTitle);
+    article.title = newTitle;
     if (article.title !== original) rewritten++;
   }
-  log(`  Rewritten ${rewritten}/${articles.length} titles`);
+  log(`  Rewritten ${rewritten}/${articles.length} titles (${usedTitles.size} unique)`);
   log('');
 
   // 4. Backdate articles (spread from Jan 1 to Mar 22, 2026)
@@ -1418,6 +1567,7 @@ async function main() {
     }
   };
   if (sections.hero) addUsed([sections.hero]);
+  addUsed(sections.heroSide);
   addUsed(sections.pickup);
   addUsed(sections.latest);
   addUsed(sections.focus);
@@ -1446,6 +1596,7 @@ async function main() {
 
   const totalUsed =
     (sections.hero ? 1 : 0) +
+    sections.heroSide.length +
     sections.pickup.length +
     sections.latest.length +
     sections.focus.length +
