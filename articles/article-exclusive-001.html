@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ガールズグループ練習生の日常が変わる！最新AI出席管理で練習効率UP♡ - PETAL Magazine</title>
+  <meta name="description" content="PETALは、K-POPガールズグループの最新ニュース、ビューティー、ファッション情報をお届けする日本発のデジタルマガジンです。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Zen Maru Gothic', 'Quicksand', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['Quicksand', 'Zen Maru Gothic', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFF8F3',
+            blush: '#FFF0F5',
+            petal: '#f78da7',
+            mint: '#b8e6d0',
+            ink: '#3d3d3d',
+            muted: '#999999',
+          },
+          borderRadius: {
+            'card': '20px',
+            'card-lg': '24px',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Zen Maru Gothic', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #3d3d3d;
+      background-color: #FFF8F3;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display {
+      font-family: 'Quicksand', 'Zen Maru Gothic', sans-serif;
+    }
+
+    /* Scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(1.5rem);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-1 { transition-delay: 80ms; }
+    .fade-up-delay-2 { transition-delay: 160ms; }
+    .fade-up-delay-3 { transition-delay: 240ms; }
+
+    /* Hover underline effect for nav */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #f78da7;
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .nav-link:hover {
+      color: #f78da7;
+    }
+
+    /* Card hover */
+    .card-hover {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(247, 141, 167, 0.12),
+                  0 8px 16px -8px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Image zoom on hover */
+    .img-zoom {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .img-zoom:hover {
+      transform: scale(1.04);
+    }
+
+    /* Badge styles */
+    .badge-petal {
+      background: #f78da7;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .badge-mint {
+      background: #b8e6d0;
+      color: #2d6a4f;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    /* Article body typography */
+    .article-body {
+      font-family: 'Zen Maru Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #3d3d3d;
+      word-break: keep-all;
+    }
+    @media (min-width: 768px) {
+      .article-body {
+        font-size: 1.125rem;
+        line-height: 2;
+      }
+    }
+
+    .article-body p {
+      margin-bottom: 1.75rem;
+    }
+
+    .article-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Editorial intro — pink left border paragraph */
+    .editorial-intro {
+      border-left: 3px solid #f78da7;
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #3d3d3d;
+    }
+    @media (min-width: 768px) {
+      .editorial-intro {
+        font-size: 1.15rem;
+        padding-left: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    /* Editorial closing — italic style */
+    .editorial-closing {
+      font-style: italic;
+      color: #666666;
+      border-top: 1px solid #f0e8e2;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      line-height: 1.85;
+    }
+
+    /* Blockquote styling */
+    .article-body blockquote {
+      border-left: 3px solid #f78da7;
+      padding: 1rem 1.25rem;
+      margin: 2rem 0;
+      background: #FFF8F3;
+      border-radius: 0 16px 16px 0;
+      font-style: italic;
+      color: #555555;
+      line-height: 1.85;
+    }
+    @media (min-width: 768px) {
+      .article-body blockquote {
+        padding: 1.25rem 1.5rem;
+        margin: 2.5rem 0;
+      }
+    }
+
+    /* Inline article images with captions */
+    .article-inline-image {
+      margin: 2rem -0.5rem;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .article-inline-image {
+        margin: 2.5rem -1rem;
+      }
+    }
+    .article-inline-image img {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+    .article-inline-image figcaption {
+      font-size: 0.8rem;
+      color: #999999;
+      margin-top: 0.75rem;
+      line-height: 1.5;
+    }
+
+    /* Scroll bar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #f78da7; border-radius: 999px; }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 248, 243, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-nav-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-nav-overlay a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #3d3d3d;
+      opacity: 0;
+      transform: translateY(1rem);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-nav-overlay.open a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-nav-overlay.open a:nth-child(1) { transition-delay: 80ms; }
+    .mobile-nav-overlay.open a:nth-child(2) { transition-delay: 160ms; }
+    .mobile-nav-overlay.open a:nth-child(3) { transition-delay: 240ms; }
+    .mobile-nav-overlay.open a:nth-child(4) { transition-delay: 320ms; }
+    .mobile-nav-overlay.open a:nth-child(5) { transition-delay: 400ms; }
+
+    /* Share button hover */
+    .share-btn {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .share-btn:hover {
+      background: #f78da7;
+      color: white;
+      border-color: #f78da7;
+    }
+
+    /* Smooth reading progress bar */
+    #reading-progress {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #f78da7;
+      z-index: 39;
+      transition: width 0.1s linear;
+    }
+  </style>
+</head>
+<body class="bg-cream min-h-[100dvh]">
+
+  <!-- Reading progress bar -->
+  <div id="reading-progress"></div>
+
+  <!-- ========================================== -->
+  <!-- NAVIGATION                                  -->
+  <!-- ========================================== -->
+  <nav class="sticky top-0 z-40 bg-cream/90 backdrop-blur-lg border-b border-petal/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="../index.html" class="flex items-center gap-2 group">
+          <iconify-icon icon="solar:flower-bold" class="text-petal text-2xl group-hover:rotate-12 transition-transform duration-500" style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);"></iconify-icon>
+          <span class="font-display font-bold text-xl tracking-[0.15em] text-ink">PETAL</span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#" class="nav-link text-sm font-medium text-ink/70">ガールズ</a>
+          <a href="#" class="nav-link text-sm font-medium text-ink/70">ビューティー</a>
+          <a href="#" class="nav-link text-sm font-medium text-ink/70">ファッション</a>
+          <a href="#" class="nav-link text-sm font-medium text-ink/70">ライフ</a>
+        </div>
+
+        <!-- Right: Search + Menu -->
+        <div class="flex items-center gap-3">
+          <button class="w-9 h-9 rounded-full bg-petal/8 flex items-center justify-center hover:bg-petal/15 transition-colors duration-300" aria-label="検索">
+            <iconify-icon icon="solar:magnifer-linear" class="text-ink/60 text-lg"></iconify-icon>
+          </button>
+          <button id="mobileMenuBtn" class="md:hidden w-9 h-9 rounded-full bg-petal/8 flex items-center justify-center hover:bg-petal/15 transition-colors duration-300" aria-label="メニュー">
+            <iconify-icon icon="solar:hamburger-menu-linear" class="text-ink/60 text-lg"></iconify-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobileNav" class="mobile-nav-overlay">
+    <button id="mobileNavClose" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-petal/10 flex items-center justify-center" aria-label="閉じる">
+      <iconify-icon icon="solar:close-circle-linear" class="text-ink text-2xl"></iconify-icon>
+    </button>
+    <a href="#" class="nav-link">ガールズ</a>
+    <a href="#" class="nav-link">ビューティー</a>
+    <a href="#" class="nav-link">ファッション</a>
+    <a href="#" class="nav-link">ライフ</a>
+    <a href="#" class="nav-link text-petal">ランキング</a>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- ARTICLE HEADER                              -->
+  <!-- ========================================== -->
+  <header class="pt-6 pb-4 md:pt-10 md:pb-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-xs text-muted mb-5 fade-up">
+        <a href="../index.html" class="hover:text-petal transition-colors duration-300">ホーム</a>
+        <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] text-muted/50"></iconify-icon>
+        <a href="#" class="hover:text-petal transition-colors duration-300">トレンド</a>
+        <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] text-muted/50"></iconify-icon>
+        <span class="text-ink/50 line-clamp-1">ガールズグループ練習生の日常が変わる！最新AI出席管理で練習効率UP</span>
+      </div>
+
+      <!-- Category badge -->
+      <div class="mb-4 fade-up">
+        <span class="badge-petal">トレンド</span>
+      </div>
+
+      <!-- Article title -->
+      <h1 class="text-3xl md:text-4xl font-bold text-ink leading-snug break-keep mb-5 fade-up">ガールズグループ練習生の日常が変わる！最新AI出席管理で練習効率UP</h1>
+
+      <!-- Meta info -->
+      <div class="flex flex-wrap items-center gap-3 text-sm text-muted mb-8 fade-up">
+        <div class="flex items-center gap-1.5">
+          <iconify-icon icon="solar:calendar-linear" class="text-base text-muted/60"></iconify-icon>
+          <time>2026-04-01</time>
+        </div>
+        <span class="w-1 h-1 rounded-full bg-muted/40"></span>
+        <div class="flex items-center gap-1.5">
+          <iconify-icon icon="solar:document-text-linear" class="text-base text-muted/60"></iconify-icon>
+          <span>PETAL編集部</span>
+        </div>
+      </div>
+
+      <!-- Share buttons -->
+      <div class="flex items-center gap-2 mb-8 fade-up">
+        <span class="text-xs text-muted mr-1">共有</span>
+        <button class="share-btn w-9 h-9 rounded-full border border-petal/15 bg-white flex items-center justify-center" aria-label="Xでシェア">
+          <iconify-icon icon="solar:chat-round-bold" class="text-ink/40 text-sm"></iconify-icon>
+        </button>
+        <button class="share-btn w-9 h-9 rounded-full border border-petal/15 bg-white flex items-center justify-center" aria-label="LINEでシェア">
+          <iconify-icon icon="solar:phone-calling-bold" class="text-ink/40 text-sm"></iconify-icon>
+        </button>
+        <button class="share-btn w-9 h-9 rounded-full border border-petal/15 bg-white flex items-center justify-center" aria-label="リンクをコピー">
+          <iconify-icon icon="solar:link-round-bold" class="text-ink/40 text-sm"></iconify-icon>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ========================================== -->
+  <!-- FEATURED IMAGE                              -->
+  <!-- ========================================== -->
+  <section class="px-4 sm:px-6 lg:px-8 mb-8 md:mb-12">
+    <div class="max-w-4xl mx-auto fade-up">
+      <div class="overflow-hidden rounded-card-lg">
+        <img
+          src="https://picsum.photos/seed/petal-trainee/760/428"
+          alt="練習生AI管理"
+          class="w-full aspect-[16/9] object-cover"
+          loading="eager"
+          decoding="async"
+        >
+      </div>
+      <p class="text-xs text-muted/70 mt-3 text-right">Photo: &copy;PETAL</p>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- ARTICLE BODY                                -->
+  <!-- ========================================== -->
+  <main class="px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+        <!-- Article content column -->
+        <article class="lg:col-span-8 fade-up">
+          <div class="bg-white rounded-card-lg shadow-sm p-6 md:p-10 lg:p-12">
+            <div class="max-w-[720px] mx-auto article-body">
+              <div class="editorial-intro">
+                朝早くから夜遅くまでレッスンに励むガールズグループの練習生たち。忙しい毎日の中で「今月あと何回レッスン受けられるんだっけ？」「先週の遅刻、ちゃんと記録されてるかな？」と不安になることも多いはず。そんな練習生たちの味方になってくれる、最新のAI出席管理システムが話題になっています！
+              </div>
+
+              <p>これまでK-POPアカデミーの出席管理といえば、入り口に置かれた紙の出席簿に名前を書くスタイルが一般的でした。でも、書き忘れたり、マネージャーがチェックし忘れたりすることも日常茶飯事。「あの日ちゃんと来てたのに欠席扱いになってた！」なんて悲しいエピソードも少なくありませんでした。新しいAIシステムでは、レッスンごとの出席状況が「出席」「欠席」「遅刻」「公欠」の4段階でリアルタイムに記録されるので、そんな心配はもう不要です。</p>
+
+              <p>このシステムの面白いところは、練習生一人ひとりに合わせた「プラン」が用意されていること。プランは4種類あって、入門者向けの「スタート」、基礎固め中の「ベーシック」、本格的にスキルアップを目指す「スタンダード」、そしてデビュー候補生のための「プレミアム」があります。それぞれ月間のレッスン回数が異なっていて、プレミアムプランの練習生はほぼ好きなだけレッスンを受けられるんです。「次のプランに上がりたい！」というのが、練習生たちの新しいモチベーションになっているそう。</p>
+
+              <blockquote>「プランが上がるたびに受けられるレッスンが増えて、先輩インストラクターの個別指導も受けられるようになるんです。頑張るほどチャンスが広がるのが目に見えるから、毎日のレッスンがもっと楽しくなりました」<br>&mdash;&mdash; スタンダードプランに昇格したばかりの練習生（17歳）</blockquote>
+
+              <p>レッスンのスケジュール管理もとってもスマート。練習生はA組とB組に分かれていて、曜日ごとにレッスン内容がローテーションします。月曜日にA組がボーカルトレーニングを受けている間、B組はダンスレッスン。翌日には入れ替わるので、偏りなく全てのスキルを磨けるんです。しかも、いつも同じメンバーだけで練習するのではなく、グループが入れ替わることで新しい友達もできやすい環境になっています。</p>
+
+              <p>気になる「遅刻」の管理についても紹介しますね。このシステムでは遅刻時間が分単位で正確に記録されます。でも、ただ厳しいだけじゃないんです。例えば、建物のエレベーター混雑による2分の遅れと、連絡なしの30分遅刻はちゃんと区別されます。月末には累積遅刻時間が計算されて、一定時間を超えると注意のお知らせが届く仕組み。ある運営関係者は「毎日少しずつ遅刻していた練習生がいたのですが、理由を聞いてみたらアルバイトとの時間調整に困っていたことが分かりました。システムのおかげで早期に気づけて、スケジュールの見直しができたんです」と話してくれました。</p>
+
+              <p>「公欠」の制度もしっかり整備されています。体調不良や家庭の事情でどうしても休まなければならない日は、事前に申請すれば「公欠」として記録され、警告の対象にはなりません。以前は口頭でマネージャーに伝えるだけだったので「言った・言わない」のトラブルが絶えなかったのですが、デジタル記録になったことですべてがクリアに。練習生たちも安心して必要な休養を取れるようになりました。</p>
+
+              <p>セッション消費の追跡機能も練習生には嬉しいポイント。月の途中で「あと何回レッスンが受けられるか」がいつでもスマホから確認できるので、計画的にスケジュールを立てやすくなっています。月末ギリギリにレッスンを詰め込んで体を壊してしまう「駆け込み練習」がぐっと減ったという声も。忙しいスケジュールの中で自分のペースを管理できるのは、特にまだ学校に通いながら練習している若い練習生たちにとって大きな助けになっています。</p>
+
+              <p>もちろん、テクノロジーだけで全てが解決するわけではありません。大切なのは、このシステムが練習生一人ひとりの成長をサポートするツールとして使われること。データに基づいた客観的な管理は、練習生とマネージャーの信頼関係を深め、透明性のあるトレーニング環境を作る第一歩になるはずです。ガールズグループを夢見る女の子たちが、安心して全力で練習に打ち込める未来が、少しずつ形になり始めています。</p>
+
+              <div class="editorial-closing">
+                取材・文：PETAL編集部
+              </div>
+            </div>
+          </div>
+
+          <!-- Source Attribution -->
+          <div class="mt-6 md:mt-8 fade-up">
+            <div class="bg-cream border border-petal/10 rounded-card p-5 md:p-6">
+              <div class="flex items-start gap-3">
+                <iconify-icon icon="solar:link-round-bold" class="text-petal text-lg mt-0.5 flex-shrink-0"></iconify-icon>
+                <div>
+                  <p class="text-xs text-muted mb-1">出典</p>
+                  <p class="text-sm text-ink/80">PETAL編集部による独自取材レポート</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="mt-6 md:mt-8 flex flex-wrap gap-2 fade-up">
+            <a href="#" class="px-3.5 py-1.5 rounded-full bg-white text-xs font-medium text-ink/70 border border-petal/10 hover:border-petal/30 hover:text-petal transition-all duration-300">#K-POP</a>
+            <a href="#" class="px-3.5 py-1.5 rounded-full bg-white text-xs font-medium text-ink/70 border border-petal/10 hover:border-petal/30 hover:text-petal transition-all duration-300">#ガールズグループ</a>
+            <a href="#" class="px-3.5 py-1.5 rounded-full bg-white text-xs font-medium text-ink/70 border border-petal/10 hover:border-petal/30 hover:text-petal transition-all duration-300">#練習生</a>
+            <a href="#" class="px-3.5 py-1.5 rounded-full bg-white text-xs font-medium text-ink/70 border border-petal/10 hover:border-petal/30 hover:text-petal transition-all duration-300">#AI</a>
+            <a href="#" class="px-3.5 py-1.5 rounded-full bg-white text-xs font-medium text-ink/70 border border-petal/10 hover:border-petal/30 hover:text-petal transition-all duration-300">#トレンド</a>
+          </div>
+        </article>
+
+        <!-- Sidebar column -->
+        <aside class="lg:col-span-4">
+          <!-- Sticky sidebar wrapper -->
+          <div class="lg:sticky lg:top-24 space-y-6">
+
+            <!-- Newsletter signup -->
+            <div class="fade-up bg-blush rounded-card-lg p-5 md:p-6 border border-petal/10">
+              <div class="flex items-center gap-2 mb-3">
+                <iconify-icon icon="solar:letter-bold" class="text-petal text-lg"></iconify-icon>
+                <h3 class="font-display font-bold text-sm text-ink">PETAL Newsletter</h3>
+              </div>
+              <p class="text-xs text-ink/70 leading-relaxed mb-4">毎週金曜日、最新ニュースをお届けします。</p>
+              <div class="flex flex-col gap-2">
+                <input
+                  type="email"
+                  placeholder="メールアドレス"
+                  class="w-full px-4 py-2.5 rounded-full bg-white border border-petal/15 text-xs text-ink placeholder:text-muted/60 focus:outline-none focus:border-petal/40 transition-all duration-300"
+                >
+                <button class="w-full px-4 py-2.5 rounded-[8px] bg-ink text-white text-xs font-medium hover:bg-ink/85 active:bg-ink/70 transition-colors duration-200">
+                  無料で登録
+                </button>
+              </div>
+            </div>
+
+            <!-- Popular articles sidebar -->
+            <div class="fade-up fade-up-delay-1 bg-white rounded-card-lg shadow-sm p-5">
+              <h3 class="font-display font-bold text-sm text-ink mb-4 flex items-center gap-2">
+                <iconify-icon icon="solar:fire-bold" class="text-petal text-base"></iconify-icon>
+                人気記事
+              </h3>
+              <div class="space-y-4">
+              </div>
+            </div>
+
+            <!-- Social follow -->
+            <div class="fade-up fade-up-delay-2 bg-cream rounded-card-lg p-5">
+              <h3 class="font-display font-bold text-sm text-ink mb-3">Follow Us</h3>
+              <div class="flex gap-2.5">
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-petal/10 flex items-center justify-center hover:bg-petal/5 hover:border-petal/30 transition-all duration-300 group" aria-label="Instagram">
+                  <iconify-icon icon="solar:camera-minimalistic-bold" class="text-ink/50 text-base group-hover:text-petal transition-colors duration-300"></iconify-icon>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-petal/10 flex items-center justify-center hover:bg-petal/5 hover:border-petal/30 transition-all duration-300 group" aria-label="X (Twitter)">
+                  <iconify-icon icon="solar:chat-round-bold" class="text-ink/50 text-base group-hover:text-petal transition-colors duration-300"></iconify-icon>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-petal/10 flex items-center justify-center hover:bg-petal/5 hover:border-petal/30 transition-all duration-300 group" aria-label="YouTube">
+                  <iconify-icon icon="solar:play-bold" class="text-ink/50 text-base group-hover:text-petal transition-colors duration-300"></iconify-icon>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-petal/10 flex items-center justify-center hover:bg-petal/5 hover:border-petal/30 transition-all duration-300 group" aria-label="TikTok">
+                  <iconify-icon icon="solar:music-note-2-bold" class="text-ink/50 text-base group-hover:text-petal transition-colors duration-300"></iconify-icon>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- RELATED ARTICLES                            -->
+  <!-- ========================================== -->
+  <section class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <!-- Section header -->
+      <div class="flex items-center gap-3 mb-8 md:mb-10 fade-up">
+        <div class="w-8 h-[3px] rounded-full bg-petal"></div>
+        <h2 class="font-display font-bold text-lg md:text-xl tracking-wide text-ink">Related</h2>
+        <span class="text-muted text-sm">関連記事</span>
+      </div>
+
+      <!-- Related articles grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- FOOTER                                      -->
+  <!-- ========================================== -->
+  <footer class="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8 border-t border-petal/10">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col items-center text-center">
+        <!-- Logo -->
+        <a href="../index.html" class="flex items-center gap-2 mb-5 group">
+          <iconify-icon icon="solar:flower-bold" class="text-petal text-2xl group-hover:rotate-12 transition-transform duration-500" style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);"></iconify-icon>
+          <span class="font-display font-bold text-xl tracking-[0.15em] text-ink">PETAL</span>
+        </a>
+        <p class="text-sm text-muted max-w-md leading-relaxed mb-8">K-POPガールズグループの最新ニュース、ビューティー、ファッション、ライフスタイル情報を毎日お届け。</p>
+
+        <!-- Divider -->
+        <div class="w-16 h-[2px] rounded-full bg-petal/30 mb-8"></div>
+
+        <!-- Links -->
+        <div class="flex flex-wrap items-center justify-center gap-6 mb-8">
+          <a href="#" class="text-sm text-ink/60 hover:text-petal transition-colors duration-300">About</a>
+          <a href="#" class="text-sm text-ink/60 hover:text-petal transition-colors duration-300">Contact</a>
+          <a href="#" class="text-sm text-ink/60 hover:text-petal transition-colors duration-300">Privacy Policy</a>
+          <a href="#" class="text-sm text-ink/60 hover:text-petal transition-colors duration-300">Terms of Service</a>
+          <a href="#" class="text-sm text-ink/60 hover:text-petal transition-colors duration-300">広告掲載</a>
+        </div>
+
+        <!-- Copyright -->
+        <p class="text-xs text-muted/70">&copy; 2026 PETAL Magazine. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT                                  -->
+  <!-- ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // IntersectionObserver for fade-up animations
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.fade-up').forEach(function(el) {
+        observer.observe(el);
+      });
+
+      // Reading progress bar
+      var progressBar = document.getElementById('reading-progress');
+      if (progressBar) {
+        window.addEventListener('scroll', function() {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var progress = (scrollTop / docHeight) * 100;
+          progressBar.style.width = progress + '%';
+        });
+      }
+
+      // Mobile menu toggle
+      var menuBtn = document.getElementById('mobileMenuBtn');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileNavClose = document.getElementById('mobileNavClose');
+
+      if (menuBtn && mobileNav) {
+        menuBtn.addEventListener('click', function() {
+          mobileNav.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+      if (mobileNavClose && mobileNav) {
+        mobileNavClose.addEventListener('click', function() {
+          mobileNav.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+
+      // Close mobile nav on link click
+      if (mobileNav) {
+        mobileNav.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+
+      // Copy link share button
+      var shareBtns = document.querySelectorAll('.share-btn');
+      if (shareBtns.length >= 3) {
+        shareBtns[2].addEventListener('click', function() {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(window.location.href).then(function() {
+              var icon = shareBtns[2].querySelector('iconify-icon');
+              var origIcon = icon.getAttribute('icon');
+              icon.setAttribute('icon', 'solar:check-circle-bold');
+              setTimeout(function() {
+                icon.setAttribute('icon', origIcon);
+              }, 1500);
+            });
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
